@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 style="font-weight: bold; font-size:3rem ;">Peliculas Estrenos</h1>
-        <b-table  fixed bordered :items="destrucMovie" :fields="fields" striped responsive="sm">
+        <b-table select-mode="single" fixed bordered :items="destrucMovie" :fields="fields" striped responsive="sm">
             <template #cell(ver_actores)="row">
                 <b-button size="sm" @click="getinfo(row)" class="mr-2">
                 {{ row.detailsShowing ? 'Hide' : 'Show'}} actors
