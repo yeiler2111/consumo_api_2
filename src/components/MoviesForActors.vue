@@ -122,7 +122,6 @@ export default{
                     this.trues=this.actoresForMovies[i].cast.edges
                 }
            }
-           console.log(this.trues)
         
 
         }

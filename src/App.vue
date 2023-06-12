@@ -8,13 +8,8 @@
       <button class="btn btn-primary "  @click="verMovies">ver peliculas</button>
     </div>
       
-    <nuevo v-if="viewActors"></nuevo>
-      <actors-table v-if="viewMovies"></actors-table>
-      
-
-
-
-
+    <nuevo v-if="viewMovies"></nuevo>
+      <actors-table v-if="viewActors"></actors-table>
   </div>
 </template>
 
