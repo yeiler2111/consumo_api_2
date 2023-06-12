@@ -2,7 +2,8 @@
     
     <div class="overflow-auto">
         <h1 style="font-weight: bold; font-size:3rem ;">Actores</h1>
-        <b-table   id="my-table" :per-page="perPage" :current-page="currentPage"  small fixed bordered :items="actores" :fields="fields" responsive="sm">
+        <b-table head-row-variant="dark"   id="my-table" :per-page="perPage" :current-page="currentPage"  small fixed bordered :items="actores" :fields="fields" responsive="sm">
+            
             <template #cell(ver_Peliculas)="row">
                 <b-button size="sm" @click="getMovies(row)" class="mr-2">
                 {{ row.detailsShowing ? 'Hide' : 'Show'}} Movies
@@ -10,10 +11,9 @@
             </template>
 
             <template #row-details>
-                <div class="d-flex justify-content ">
-                    <b-card v-for="items in arrayPeliculas" :key="items.id"
-                        :title="items.originalTitleText.text
-"
+                <div v-if="selectedMovie" class="d-flex justify-content">
+                    <b-card  v-for="items in arrayPeliculas" :key="items.id"
+                        :title="items.originalTitleText.text"
                         :img-src="items.primaryImage.url"
                         img-alt="Image"
                         img-top
@@ -54,6 +54,9 @@ export default{
         arrayPeliculas:[],
         perPage: 10,
         currentPage: 1,
+        selectedMovie: null,
+       
+
     }
    },computed:{
     rows(){
@@ -73,7 +76,19 @@ export default{
            
         },
         getMovies(row){
-            row.toggleDetails()
+            if (this.selectedMovie === row.item) {
+                row.toggleDetails();
+                this.selectedMovie = null; 
+                return; // Si es la misma película, no hacer nada
+            }
+            if (this.selectedMovie !== null) {
+                this.selectedMovie.detailsShowing = false;
+                return; // Si es la misma película, no hacer nada
+            }
+
+            row.toggleDetails();
+            this.selectedMovie = row.item;
+                        
            this.arrayPeliculas=[]
            let arrayCodigos= row.item.knownForTitles.split(',')
          
@@ -82,8 +97,9 @@ export default{
                 this.arrayPeliculas.push(Response.data.results)  
            })
            }
+           
           
-        },
+        }
        
     },
     async created(){
@@ -94,3 +110,8 @@ export default{
    
 }
 </script>
+<style>
+.color{
+    background-color: black;
+}
+</style>

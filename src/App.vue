@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <!-- <perros></perros>    aqui consumo unas imagenes de una api de perros -->
-    <!-- <actor></actor>
-    <perros></perros> -->
-    <div class="d-flex justify-content-center">
-      <button class="btn btn-primary gap-2"  @click="verActors">ver actores</button>
-      <button class="btn btn-primary "  @click="verMovies">ver peliculas</button>
-    </div>
+    <b-container  class="justify-content-center">
+      <b-row >
+        <b-col> <button class="btn btn-primary gap-2"  @click="verActors">ver actores</button></b-col>
+        <b-col>    <button class="btn btn-primary "  @click="verMovies">ver peliculas</button></b-col>
+      </b-row>  
+        
+    </b-container>
       
     <nuevo v-if="viewMovies"></nuevo>
       <actors-table v-if="viewActors"></actors-table>
@@ -53,5 +53,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
 }
 </style>

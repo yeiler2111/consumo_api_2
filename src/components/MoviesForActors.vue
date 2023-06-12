@@ -1,36 +1,29 @@
 <template>
     <div>
         <h1 style="font-weight: bold; font-size:3rem ;">Peliculas Estrenos</h1>
-        <b-table   id="my-table" :per-page="perPage" :current-page="currentPage"  small fixed bordered :items="destrucMovie" :fields="fields" striped responsive="sm">
+        <b-table head-row-variant="dark" id="my-table" :per-page="perPage" :current-page="currentPage"  small fixed bordered :items="destrucMovie" :fields="fields" striped responsive="sm">
             <template #cell(ver_actores)="row">
                 <b-button size="sm" @click="getinfo(row)" class="mr-2">
                 {{ row.detailsShowing ? 'Hide' : 'Show'}} actors
                 </b-button>
             </template>
             <template #row-details>
-                <div class=" ">
-                    <b-card-group deck>
-                        <b-card  v-for="items in trues" :key="items.id"
-                        :title="items.node.name.nameText.text"
-                        :img-src="items.node.name.primaryImage && items.node.name.primaryImage.url"
-                        img-alt="Image"
-                        img-top
-                        tag="article"
-                        style="max-width: 20rem;"
-                        class="mb-2 text-center"
-                        >
-                        <b-card-text>
-                            <h3>
-                                       
-                            </h3> 
-                          
-                        </b-card-text>
-
-                        
-                    </b-card>
-                    </b-card-group>
-                   
-                </div>
+                <b-container>
+                    <b-row class="justify-content-md-center">    
+                        <b-card-group v-if="selectedMovie">
+                            <b-card  v-for="items in trues" :key="items.id"
+                            :title="items.node.name.nameText.text"
+                            :img-src="items.node.name.primaryImage && items.node.name.primaryImage.url"
+                            img-alt="Image"
+                            img-top
+                            tag="article"
+                            style="max-width: 20rem;"
+                            class="mb-2 text-center"
+                            >  
+                        </b-card>
+                        </b-card-group>
+                    </b-row>
+                </b-container>
                     
             </template>
         </b-table>
@@ -59,6 +52,7 @@ export default{
             trues:[],
             perPage: 5,
            currentPage: 1,
+           selectedMovie:null
         }
     },
     computed:{
@@ -91,8 +85,8 @@ export default{
             let peli
             try {
                 for (let i = 0; i < this.idMovies.length; i++) {
-                const id = this.idMovies[i];
-                const response = await MovieServices.getMovieMainActors(id);
+                const id = this.idMovies[i]
+                const response = await MovieServices.getMovieMainActors(id)
                 this.movies.push(response.data.results);
                 }
                 
@@ -115,10 +109,23 @@ export default{
             
         },
         getinfo(row){
-            row.toggleDetails()
-            let id= row.item.id
+            
+            if (this.selectedMovie === row.item) {
+                row.toggleDetails()
+                this.selectedMovie = null
+                return;
+            }
+            if (this.selectedMovie !== null) {
+                this.selectedMovie.detailsShowing = false
+                return;
+            }
+
+            row.toggleDetails();
+            this.selectedMovie = row.item;
+            
+        
             for(let i=0;i< this.actoresForMovies.length;i++){
-                if(this.actoresForMovies[i].id == id){
+                if(this.actoresForMovies[i].id == this.selectedMovie.id){
                     this.trues=this.actoresForMovies[i].cast.edges
                 }
            }
