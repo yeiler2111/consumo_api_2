@@ -10,6 +10,11 @@
       
     <nuevo v-if="viewActors"></nuevo>
       <actors-table v-if="viewMovies"></actors-table>
+      
+
+
+
+
   </div>
 </template>
 
@@ -29,9 +34,11 @@ export default {
   data(){
     return{
       viewActors:false,
-      viewMovies:false
+      viewMovies:false,
+   
     }
   },
+  
   methods:{
     verActors(){
       this.viewActors= !this.viewActors 

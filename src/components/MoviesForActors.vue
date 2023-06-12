@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 style="font-weight: bold; font-size:3rem ;">Peliculas Estrenos</h1>
-        <b-table select-mode="single" fixed bordered :items="destrucMovie" :fields="fields" striped responsive="sm">
+        <b-table   id="my-table" :per-page="perPage" :current-page="currentPage"  small fixed bordered :items="destrucMovie" :fields="fields" striped responsive="sm">
             <template #cell(ver_actores)="row">
                 <b-button size="sm" @click="getinfo(row)" class="mr-2">
                 {{ row.detailsShowing ? 'Hide' : 'Show'}} actors
@@ -34,6 +34,12 @@
                     
             </template>
         </b-table>
+        <b-pagination class="justify-content-center"
+                v-model="currentPage"
+                :total-rows="rows"
+                :per-page="perPage"
+                aria-controls="my-table">
+        </b-pagination>
     </div>
 </template>
 
@@ -50,8 +56,16 @@ export default{
             movies:[],
             destrucMovie:[],
             fields:['titulo','year','ver_actores'],
-            trues:[]
+            trues:[],
+            perPage: 5,
+           currentPage: 1,
         }
+    },
+    computed:{
+        rows(){
+            return 10
+        }
+        
     },
     methods:{
         async getActorsAndMovies(){

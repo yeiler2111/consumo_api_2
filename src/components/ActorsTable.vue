@@ -1,8 +1,8 @@
 <template>
     
-    <div>
+    <div class="overflow-auto">
         <h1 style="font-weight: bold; font-size:3rem ;">Actores</h1>
-        <b-table fixed bordered :items="actores" :fields="fields" responsive="sm">
+        <b-table   id="my-table" :per-page="perPage" :current-page="currentPage"  small fixed bordered :items="actores" :fields="fields" responsive="sm">
             <template #cell(ver_Peliculas)="row">
                 <b-button size="sm" @click="getMovies(row)" class="mr-2">
                 {{ row.detailsShowing ? 'Hide' : 'Show'}} Movies
@@ -33,8 +33,15 @@
                 </div>
                     
             </template>
+           
         </b-table>
-    </div>
+        <b-pagination class="justify-content-center"
+                v-model="currentPage"
+                :total-rows="rows"
+                :per-page="perPage"
+                aria-controls="my-table">
+        </b-pagination>
+    </div>  
 </template>
 
 <script>
@@ -44,9 +51,16 @@ export default{
     return{
         actores:[],
         fields:['primaryName','birthYear','deathYear','ver_Peliculas'],
-        arrayPeliculas:[]
+        arrayPeliculas:[],
+        perPage: 10,
+        currentPage: 1,
     }
-   },
+   },computed:{
+    rows(){
+        return 50
+    }
+   }
+   ,
    methods:{
         async getActores(){
             try {
@@ -68,14 +82,15 @@ export default{
                 this.arrayPeliculas.push(Response.data.results)  
            })
            }
-           
-        }
+          
+        },
        
-   },
+    },
     async created(){
         await this.getActores()
-        
+    
          
    }
+   
 }
 </script>
