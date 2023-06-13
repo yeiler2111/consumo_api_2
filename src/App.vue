@@ -1,9 +1,10 @@
 <template>
-  <div id="app">
+  <div class="imagen" id="app">
+  
     <b-container  class="justify-content-center">
       <b-row >
-        <b-col> <button class="btn btn-primary gap-2"  @click="verActors">ver actores</button></b-col>
-        <b-col>    <button class="btn btn-primary "  @click="verMovies">ver peliculas</button></b-col>
+        <b-col > <button class="btn btn-primary gap-2"  @click="verActors">ver actores</button></b-col>
+        <b-col > <button class="btn btn-primary "  @click="verMovies">ver peliculas</button></b-col>
       </b-row>  
         
     </b-container>
@@ -53,6 +54,22 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  height: 100vh;
+  margin-top: 0;
+
+  
+}
+
+.imagen{
+  background-image: url("@/assets/373.jpg");
+  background-size: cover;
+  background-position: cover;
+  width: 100%;
+  height: 100vh;
+  object-fit:cover;
+  background-repeat: none;
+  
 
 }
+
 </style>

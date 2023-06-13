@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 style="font-weight: bold; font-size:3rem ;">Peliculas Estrenos</h1>
+        <span style="border-radius: 5px;font-weight: bold; font-size:3rem ; color: white; background-color: black;">Peliculas Estrenos</span>
         <b-table head-row-variant="dark" id="my-table" :per-page="perPage" :current-page="currentPage"  small fixed bordered :items="destrucMovie" :fields="fields" striped responsive="sm">
             <template #cell(ver_actores)="row">
                 <b-button size="sm" @click="getinfo(row)" class="mr-2">
@@ -27,7 +27,7 @@
                     
             </template>
         </b-table>
-        <b-pagination class="justify-content-center"
+        <b-pagination class="justify-content-center mt-5"
                 v-model="currentPage"
                 :total-rows="rows"
                 :per-page="perPage"

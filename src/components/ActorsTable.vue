@@ -1,7 +1,7 @@
 <template>
     
     <div class="overflow-auto">
-        <h1 style="font-weight: bold; font-size:3rem ;">Actores</h1>
+        <span style="font-weight: bold; font-size:3rem ; color: white;background-color: black;border-radius: 5px;">Actores</span>
         <b-table head-row-variant="dark"   id="my-table" :per-page="perPage" :current-page="currentPage"  small fixed bordered :items="actores" :fields="fields" responsive="sm">
             
             <template #cell(ver_Peliculas)="row">
@@ -11,31 +11,35 @@
             </template>
 
             <template #row-details>
-                <div v-if="selectedMovie" class="d-flex justify-content">
-                    <b-card  v-for="items in arrayPeliculas" :key="items.id"
-                        :title="items.originalTitleText.text"
-                        :img-src="items.primaryImage.url"
-                        img-alt="Image"
-                        img-top
-                        tag="article"
-                        style="max-width: 20rem;"
-                        class="mb-2"
-                        >
-                        <b-card-text>
-                            <h3>
-                               año de lanzamiento fue en {{items.releaseYear.year}} y su titulo es {{items.titleText.text}}                             
-                            </h3> 
-                          
-                        </b-card-text>
-
                         
-                    </b-card>
-                </div>
-                    
+                    <b-container fluid="xl">
+                        <div  v-if="selectedMovie" class="d-flex justify-content" >
+                            <b-card  v-for="items in arrayPeliculas" :key="items.id"
+                                :title="items.originalTitleText.text"
+                                :img-src="items.primaryImage.url"
+                                img-alt="Image"
+                                img-top
+                                tag="article"
+                                style="max-width: 20rem;"
+                                class="mb-2"
+                                >
+                                <b-card-text>
+                                    <h3>
+                                    año de lanzamiento fue en {{items.releaseYear.year}} y su titulo es {{items.titleText.text}}                             
+                                    </h3> 
+                                
+                                </b-card-text>
+
+                                
+                            </b-card>
+                        </div>
+
+                    </b-container>
+                                            
             </template>
            
         </b-table>
-        <b-pagination class="justify-content-center"
+        <b-pagination class="justify-content-center mt-5"
                 v-model="currentPage"
                 :total-rows="rows"
                 :per-page="perPage"
